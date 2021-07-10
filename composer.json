@@ -2,7 +2,7 @@
     "require": {
         "2checkout/2checkout-php": "^0.3.1",
         "coinpaymentsnet/coinpayments-php": "^1.4",
-        "phpmailer/phpmailer": "5.2.28",
+        "phpmailer/phpmailer": "6.5.0",
         "phpoption/phpoption": "^1.7",
         "twig/twig": "2.5",
         "webmozart/assert": "^1.8",
