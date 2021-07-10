@@ -1,0 +1,113 @@
+{% if settings['ticket_system'] == 2 %}
+{% include 'header.twig' %}
+<div class="content-body">
+    <div class="container pd-x-0">
+        <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-25 mg-xl-b-30">
+            <div>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb breadcrumb-style1 mg-b-10">
+                        <li class="breadcrumb-item"><a href="#">{{ constant("HOME") }}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ constant("TICKET") }}</li>
+                    </ol>
+                </nav>
+                <h4 class="mg-b-0 tx-spacing--1">{{ constant("TICKET") }}</h4>
+            </div>
+        </div>
+
+        <div class="row">
+            {% if settings['whatsapp'] != null %}
+                <div class="col-sm-6 col-lg-6">
+                    <div class="card card-body">
+                        <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">{{ constant("OURWHATSAPP") }}</h6>
+                        <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                            <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 dticket">{{ settings['whatsapp'] }}</h3>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            {% if settings['mail'] != null %}
+                <div class="col-sm-6 col-lg-6 mg-t-12 mg-sm-t-0">
+                    <div class="card card-body">
+                        <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">{{ constant("OUREMAIL") }}</h6>
+                        <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                            <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1 dticket">{{ settings['mail'] }}</h3>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        <div class="row">
+            <div class="col-md-6 mg-t-10">
+                <div class="card">
+                    <div class="card-header pd-b-0 pd-x-20 bd-b-0">
+                        <div class="d-sm-flex align-items-center justify-content-between">
+                            <h6 class="mg-b-0">{{ constant("NEWTICKET") }}</h6>
+                        </div>
+                    </div>
+                    <div class="card-body pd-20">
+
+                        {% if error %}
+                        <div class="alert alert-dismissible alert-danger {% if site['rtl'] %} rtl-alert {% endif %}">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            {{ errorText }}
+                        </div>
+                        {% elseif success %}
+                        <div class="alert alert-dismissible alert-success {% if site['rtl'] %} rtl-alert {% endif %}">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            {{ successText }}
+                        </div>
+                        {% endif %}
+
+                        <form method="post" action="tickets">
+                            <div class="form-group">
+                                <label for="subject" class="control-label">{{ constant("SUBJECT") }}</label>
+                                <input type="text" class="form-control" id="subject" name="subject" value="{{ data['subject'] }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="message" class="control-label">{{ constant("MESSAGE") }}</label>
+                                <textarea class="form-control" rows="7" id="message" name="message">{{ data['message'] }}</textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">{{ constant("CREATETICKET") }}</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mg-t-10">
+                <div class="card">
+                    <div class="card-body pd-20">
+
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>{{ constant("SUBJECT") }}</th>
+                                    <th>{{ constant("STATUS") }}</th>
+                                    <th class="nowrap">{{ constant("LASTUPDATE") }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for ticket in ticketList %}
+                                <tr>
+                                    <td>{{ ticket['ticket_id'] }}</td>
+                                    {% if ticket["support_new"] == 2 %}
+                                    <td><a href="tickets/{{ ticket['ticket_id'] }}"><strong>{{ ticket['subject'] }}</strong></a></td>
+                                    {% else %}
+                                    <td><a href="tickets/{{ ticket['ticket_id'] }}">{{ ticket['subject'] }}</a></td>
+                                    {% endif %}
+                                    <td>{{ ticket['status'] }}</td>
+                                    <td><span class="nowrap">{{ ticket['lastupdate_time'] }}</span></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        {% include 'footer.twig' %}
+{% endif %}

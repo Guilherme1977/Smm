@@ -1,0 +1,8 @@
+// Grid Codes
+#wrapper {
+  display: grid;
+  grid-template-columns:
+    [full-start] minmax(0.1rem, 1fr) [center-start] repeat(11, 1fr)
+    [center-end] minmax(0.1rem, 1fr) [full-end];
+  grid-template-rows: auto;
+}

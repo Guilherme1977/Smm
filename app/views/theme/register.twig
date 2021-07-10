@@ -1,0 +1,156 @@
+{% if settings['register_page'] == 2 %}
+    {% include 'header.twig' %}
+        <div class="slider-social" style="grid-gap:20rem">
+            <div class="media-body align-items-center d-none d-lg-flex">
+                <div class="mx-wd-600">
+                    <img src="theme/assets/img/registerimg.svg" class="img-fluid" alt="">
+                </div>
+            </div>
+            <div class="sign-wrapper mg-lg-l-50 mg-xl-l-60">
+                <div class="wd-100p custom-login">
+                    <h3 class="tx-color-01 mg-b-5">{{ constant("REGISTER") }}</h3>
+                    <p class="tx-color-03 tx-16 mg-b-40">{{ constant("WELCOMEREGISTERTEXT") }}</p>
+
+                    {% if errorText %}
+                        <div class="alert alert-dismissible alert-danger">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            {{ errorText }}
+                        </div>
+                    {% endif %} {% if successText %}
+                        <div class="alert alert-dismissible alert-success">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            {{ successText }}
+                        </div>
+                    {% endif %}
+                    <form method="post" action="">
+                        <div class="form-group">
+                            <label for="name">{{ constant("NAMESURNAME") }}</label>
+                            <input type="text" class="form-control" id="email" value="" name="name" placeholder="John Doe">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="username">{{ constant("USERNAME") }}</label>
+                            <input type="text" class="form-control" id="username" value="" name="username" placeholder="Johndoe">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">{{ constant("EMAIL") }}</label>
+                            <input type="email" class="form-control" id="email" value="{% if fastreg %} {{ fastreg }} {% endif %}" name="email" placeholder="john@doe.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="number">{{ constant("PHONE") }}</label>
+                            <input type="number" class="form-control" id="telephone" value="" name="telephone" placeholder="+1 234 567 89">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">{{ constant("PASSWORD") }}</label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="●●●●●●●●●●">
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm">{{ constant("PASSAGAIN") }}</label>
+                            <input type="password" class="form-control" id="confirm" name="password_again" placeholder="●●●●●●●●●●">
+                        </div>
+
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" class="terms-accept-checkbox" name="terms"> {{ constant("TERMACCEPT") }} <a href="{{ site['url'] }}/terms" target="_blank">{{ constant("TERMOFUSE") }}</a></a>
+                                </label>
+                            </div>
+                        </div>
+
+                        {% if captcha %}
+                            <div class="form-group">
+                                <div class="g-recaptcha" data-sitekey="{{ captchaKey }}"></div>
+                            </div>
+                        {% endif %}
+
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-primary btn-block">{{ constant("REGISTER") }}</button>
+                        </div>
+
+                        <div class="divider-text">{{ constant("OR") }}</div>
+                        <div class="tx-13 mg-t-20 tx-center">{{ constant("ASKFORLOGIN") }} <a href="{{ site['url'] }}/auth">{{ constant("LOGIN") }}.</a></div>
+                    </form>
+                    <script src='https://www.google.com/recaptcha/api.js'></script>
+                </div>
+            </div>
+        </div>
+    {% include 'footer.twig' %}
+{% else %}
+
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <title>Page not found!</title>
+</head>
+<style>
+    html,
+    body {
+        background: #f8f9fa;
+        width: 100%;
+        height: 100%;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        margin: 0px;
+        padding: 0px;
+        color: #212529;
+    }
+    
+    a {
+        text-decoration: none;
+        color: #212529;
+    }
+    
+    .page-row {
+        display: flex;
+        flex-wrap: wrap;
+        height: 100%;
+        width: 100%;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .page-content {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .page-title {
+        font-size: 150px;
+        margin-top: -100px;
+    }
+    
+    .page-description {
+        color: #868e96;
+        font-size: 16px;
+    }
+    
+    .page-description p {
+        padding: 0px;
+        margin: 0px;
+    }
+    
+    @media(max-width: 768px) {
+        .page-title {
+            font-size: 100px;
+            margin-top: -70px;
+        }
+    }
+</style>
+
+<body>
+    <div class="page-row">
+        <div class="page-content">
+            <div class="page-title">
+                OPPS!
+            </div>
+            <div class="page-description">
+                <p>Sorry, unfortunately member registrations are closed for a while.<p><br><a href="{{ site['url'] }}">Go home.</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+{% endif %}

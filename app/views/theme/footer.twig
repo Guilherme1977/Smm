@@ -1,0 +1,102 @@
+{% if not user['auth'] %}
+<!-- Footer Start -->
+    <footer>
+        <div class="footer" style="background:transparent;border: none;">
+            <div class="footer-form">
+                <div class="footer-form__text">
+                    <h3>{{ site["site_name"] }}</h3>
+                    <p>{{ constant("SLIDERTEXT") }}</p>
+                </div>
+                <form action="{{ site['url'] }}/auth/register" class="form" method="GET">
+                    <input type="text" class="footer-form__input" name="fastreg" value="" placeholder="{{ constant("EMAIL") }}" />
+                    <button type="submit" class="btn btn-primary btn-right__icon">{{ constant("REGISTER") }} <i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+            <div class="footer-menu">
+                <div class="footer-menu__item">
+                    <a href="{{ site['url'] }}">
+                        {% if site["logo"] %}
+                            <img src="{{ site['logo'] }}" alt="{{ site["site_name"] }}" title="{{ site["site_name"] }}">
+                        {% else %}
+                            <img src="theme/assets/img/unlogo.png" alt="{{ site["site_name"] }}" title="{{ site["site_name"] }}"> <span class="speciallogo">{{ site["site_name"] }}</span>
+                        {% endif %}
+                    </a>
+                    <p>© 2020 {{ site["site_name"] }} All rights reserved.</p>
+                </div>
+                <div class="footer-menu__item">
+                    <h4 class="menutitle">Company</h4>
+                    <nav>
+                        <ul>
+                            <li><a href="#">About</a></li>
+                            <li><a href="#">Careers</a></li>
+                            <li><a href="#">Support</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Legal</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="footer-menu__item">
+                    <h4 class="menutitle">Contact</h4>
+                    <nav>
+                        <ul>
+                            <li><a href="#">Support</a></li>
+                            <li><a href="#">Sales</a></li>
+                            <li><a href="#">Report Abuse</a></li>
+                            <li><a href="#">System Status</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="footer-menu__item">
+                    <h4 class="menutitle">System</h4>
+                    <nav>
+                        <ul>
+                            <li><a href="{{ site['url'] }}/services">{{ constant("SERVICES") }}</a></li>
+                            <li><a href="{{ site['url'] }}/api">{{ constant("API") }}</a></li>
+                            <li><a href="{{ site['url'] }}/faq">{{ constant("FAQS") }}</a></li>
+                            <li><a href="{{ site['url'] }}/terms">{{ constant("TERMOFUSE") }}</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer End -->
+{% endif %}
+</div>
+
+<script src="theme/lib/jquery/jquery.min.js"></script>
+<script src="theme/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="theme/lib/feather-icons/feather.min.js"></script>
+<script src="theme/lib/jqueryui/jquery-ui.min.js"></script>
+
+<script src="theme/assets/js/jquery.dataTables.min.js"></script>
+<script src="theme/assets/js/dataTables.bootstrap4.min.js"></script>
+
+<script src="theme/assets/js/developerity.js"></script>
+<script src="theme/assets/js/developerity.sampledata.js"></script>
+<script src="theme/lib/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="theme/assets/js/app.js"></script>
+
+{% if user['auth'] %}
+    <script src="theme/assets/js/developerity.aside.js"></script>
+{% endif %}
+
+{% if user['admin_type'] > 1 %}
+    <script type="text/javascript">
+        window.onerror = function(message, url, lineNumber) {
+            return true;
+        };
+    </script> 
+    <script type="text/javascript" src="theme/admin/theme/script.js"></script>
+{% endif %}
+<script type="text/javascript" src="theme/admin/ajax.js"></script>
+<script type="text/javascript" src="theme/admin/datepicker/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="theme/admin/datepicker/locales/bootstrap-datepicker.tr.min.js"></script>
+
+{% for script in scriptList %}
+    <script type="text/javascript" src="{{ script }}"></script>
+{% endfor %}
+{{ footerCode }}
+
+</body>
+</html>

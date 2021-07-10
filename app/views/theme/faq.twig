@@ -1,0 +1,111 @@
+{% include 'header.twig' %}
+{% if user['auth'] %}
+<div class="content-body">
+    <div class="container">
+        <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-25 mg-xl-b-30">
+            <div>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb breadcrumb-style1 mg-b-10">
+                        <li class="breadcrumb-item"><a href="#">{{ constant("HOME") }}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ constant("FAQS") }}</li>
+                    </ol>
+                </nav>
+                <h4 class="mg-b-0 tx-spacing--1">{{ constant("FAQS") }}</h4>
+            </div>
+        </div>
+        <div class="row row-ws">
+            <div class="col-md-12 mg-t-10">
+                <div class="card">
+                    <div class="card-header pd-b-0 pd-x-20 bd-b-0">
+                        <div class="d-sm-flex align-items-center justify-content-between">
+                            <h6 class="mg-b-0">{{ constant("FAQS") }}</h6>
+                            <p class="tx-12 tx-color-03 mg-b-0">{{ constant("FAQSTEXT") }}</p>
+                        </div>
+                    </div>
+                    <div class="card-body pd-20">
+                        <div id="accordion1" class="accordion">
+                            <h6 class="accordion-title">Example title 1</h6>
+                            <div class="accordion-body">
+                                <li>Example content 1</li>
+                            </div>
+                            <h6 class="accordion-title">Example title 2</h6>
+                            <div class="accordion-body">
+                                <li>Example content 2</li>
+                            </div>
+                            <h6 class="accordion-title">Example title 3</h6>
+                            <div class="accordion-body">
+                                <li>Example content 3</li>
+                            </div>
+                            <h6 class="accordion-title">Example title 4</h6>
+                            <div class="accordion-body">
+                                <li>Example content 4</li>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="slider-social" style="margin-top:0">
+    <div class="container">
+        <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-t-100 mg-lg-b-25 mg-xl-b-30">
+            <div>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb breadcrumb-style1 mg-b-10">
+                        <li class="breadcrumb-item"><a href="#">{{ constant("HOME") }}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ constant("FAQS") }}</li>
+                    </ol>
+                </nav>
+                <h4 class="mg-b-0 tx-spacing--1">{{ constant("FAQS") }}</h4>
+            </div>
+        </div>
+        <div class="row row-ws">
+            <div class="col-md-12 mg-t-10">
+                <div class="card">
+                    <div class="card-header pd-b-0 pd-x-20 bd-b-0">
+                        <div class="d-sm-flex align-items-center justify-content-between">
+                            <h6 class="mg-b-0">{{ constant("FAQS") }}</h6>
+                            <p class="tx-12 tx-color-03 mg-b-0">{{ constant("FAQSTEXT") }}</p>
+                        </div>
+                    </div>
+                    <div class="card-body pd-20">
+                        <div id="accordion1" class="accordion">
+                            <h6 class="accordion-title">Example title 1</h6>
+                            <div class="accordion-body">
+                                <li>Example content 1</li>
+                            </div>
+                            <h6 class="accordion-title">Example title 2</h6>
+                            <div class="accordion-body">
+                                <li>Example content 2</li>
+                            </div>
+                            <h6 class="accordion-title">Example title 3</h6>
+                            <div class="accordion-body">
+                                <li>Example content 3</li>
+                            </div>
+                            <h6 class="accordion-title">Example title 4</h6>
+                            <div class="accordion-body">
+                                <li>Example content 4</li>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% include 'footer.twig' %}
+<script>
+    $(function() {
+        'use strict'
+    
+        // Default functionality
+        $('#accordion1').accordion({
+            heightStyle: 'content',
+            collapsible: true
+        });
+    
+    });
+</script>

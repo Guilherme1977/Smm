@@ -1,0 +1,123 @@
+{% include 'header.twig' %}
+<div class="content-body">
+    <div class="container pd-x-0">
+        <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-25 mg-xl-b-30">
+            <div>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb breadcrumb-style1 mg-b-10">
+                        <li class="breadcrumb-item"><a href="#">{{ constant("HOME") }}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ constant("NEWORDER") }}</li>
+                    </ol>
+                </nav>
+                <h4 class="mg-b-0 tx-spacing--1">{{ constant("NEWORDER") }}</h4>
+            </div>
+        </div>
+        <div class="row row-xs">
+            <div class="col-sm-6 col-lg-4">
+                <div class="card card-body">
+                    <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">{{ constant("AMOUNTSPENT") }}</h6>
+                    <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                        <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">{{ settings['csymbol'] }}{{ user['spent'] }}</h3>
+                        <p class="tx-11 tx-color-03 mg-b-0"><span class="tx-medium tx-secondary">{{ constant("CURRENTBALANCE") }}: {{ settings['csymbol'] }}{{ user['balance'] }}</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-4 mg-t-10 mg-sm-t-0">
+                <div class="card card-body">
+                    <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">{{ constant("CURRENTBALANCE") }}</h6>
+                    <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                        <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">{{ settings['csymbol'] }}{{ user['balance'] }}</h3>
+                        <p class="tx-11 tx-color-03 mg-b-0"><span class="tx-medium tx-secondary">{{ constant("AMOUNTSPENT") }}: {{ settings['csymbol'] }}{{ user['spent'] }}</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-4 mg-t-10 mg-sm-t-0">
+                <div class="card card-body">
+                    <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">{{ constant("BALANCESTATUS") }}</h6>
+                    <div class="d-flex d-lg-block d-xl-flex align-items-end">
+                        {% if user['balance'] < 5 %}
+                            <h3 class="tx-normal tx-rubik tx-danger mg-b-0 mg-r-5 lh-1">{{ constant("LOW") }} <i class="icon ion-md-arrow-down"></i></h3>
+                        {% elseif user['balance'] > 5 and user['balance'] < 25 %}
+                            <h3 class="tx-normal tx-rubik tx-warning mg-b-0 mg-r-5 lh-1">{{ constant("NORMAL") }} <i class="icon ion-md-arrow-up"></i></h3>
+                        {% else %}
+                            <h3 class="tx-normal tx-rubik tx-success mg-b-0 mg-r-5 lh-1">{{ constant("HIGH") }} <i class="icon ion-md-arrow-up"></i></h3>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mg-t-10">
+                <div class="card">
+                    <div class="card-header pd-b-0 pd-x-20 bd-b-0">
+                        <div class="d-sm-flex align-items-center justify-content-between">
+                            <h6 class="mg-b-0">{{ constant("NEWORDER") }}</h6>
+                        </div>
+                    </div>
+                    <div class="card-body pd-20">
+                        {% if error %}
+                        <div class="alert alert-dismissible alert-danger">
+                            {{ errorText }}
+                        </div>
+                        {% endif %}
+                        {% if data["order"]["success"] == 1 %}
+                        <div class="alert alert-dismissible alert-success">
+                            <strong> {{ constant("ORDERID") }}: </strong> {{ data['order']['id'] }} <br>
+                            <strong> {{ constant("SERVICE") }}: </strong> {{ data['order']['service'] }} <br>
+                            <strong> {{ constant("LINK") }}: </strong> {{ data['order']['link'] }} <br>
+                            <strong> {{ constant("QUANTITY") }}: </strong> {{ data['order']['quantity'] }} <br>
+                            <strong> {{ constant("PRICE") }}: </strong> {{ data['order']['price'] }} <br>
+                            <strong> {{ constant("AVAILABLEBALANCE") }}: </strong>{{ data['order']['balance'] }} <br>
+                        </div>
+                        {% endif %}
+                        {% if data["order"]["success"] == 2 %}
+                        <div class="alert alert-dismissible alert-success">
+                            <strong> {{ constant("ORDERID") }}: </strong> {{ data['order']['id'] }} <br>
+                            <strong> {{ constant("SERVICE") }}: </strong> {{ data['order']['service'] }} <br>
+                            <strong> {{ constant("LINK") }}: </strong> {{ data['order']['link'] }} <br>
+                            <strong> {{ constant("QUANTITY") }}: </strong> {{ data['order']['min'] }} - {{ data['order']['max'] }} <br>
+                            <strong> {{ constant("POST") }}: </strong> {{ data['order']['posts'] }} <br>
+                            <strong> {{ constant("DELAY") }}: </strong>{{ data['order']['delay'] }} <br>
+                        </div>
+                        {% endif %}
+                        <form method="post" action="">
+                            <div class="form-group">
+                                <label for="orderform-category" class="control-label">{{ constant("CATEGORY") }}</label>
+                                <select class="form-control" id="neworder_category" name="categories">
+                                {% for category in categories %}
+                                <option value="{{ category["category_id"] }}" {% if category["category_id"] == data['categories'] %} selected {% endif %} >{{ category["category_name"] }}</option>
+                                {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="orderform-service" class="control-label">{{ constant("SERVICES") }}</label>
+                                <select class="form-control" id="neworder_services" name="services">
+                                </select>
+                            </div>
+                            <div id="neworder_fields"></div>
+                            <hr>
+                            <div class="form-group">
+                                <label for="charge" class="control-label">{{ constant("AMOUNT") }}</label>
+                                <input type="text" class="form-control" id="charge" readonly>
+                            </div>
+                            <button type="submit" class="btn btn-primary">{{ constant("CREATEORDER") }}</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mg-t-10">
+                <div class="card">
+                    <div class="card-header pd-b-0 pd-x-20 bd-b-0">
+                        <div class="d-sm-flex align-items-center justify-content-between">
+                            <h6 class="mg-b-0">{{ constant("ANNOUNCEMENT") }}</h6>
+                        </div>
+                    </div>
+                    <div class="card-body pd-20">
+                        {{ contentText }}
+                        <hr>
+                        <p><i class="text-primary">-{{ site["site_name"] }}</i></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% include 'footer.twig' %}

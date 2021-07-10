@@ -1,0 +1,89 @@
+{% include 'header.twig' %}
+    {% if ((servicesPage == 1 or servicesPage == 2) and user['auth']) or (servicesPage == 1 and not user['auth']) %}
+        {% if user['auth'] %}
+            <div class="content-body">
+        {% else %}
+            <div class="slider-social" style="margin-top:0">
+        {% endif %}
+
+        <div class="container pd-x-0">
+            {% if user['auth'] %}
+                <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-25 mg-xl-b-30">
+            {% else %}
+                <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-t-100 mg-lg-b-25 mg-xl-b-30">
+            {% endif %}
+                <div>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb breadcrumb-style1 mg-b-10">
+                            <li class="breadcrumb-item"><a href="#">{{ constant("HOME") }}</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">{{ constant("SERVICES") }}</li>
+                        </ol>
+                    </nav>
+                    <h4 class="mg-b-0 tx-spacing--1">{{ constant("SERVICES") }}</h4>
+                </div>
+            </div>
+
+            <div class="row row-xs">
+
+                <div class="col-md-12 mg-t-10">
+                    <div class="card">
+                        {% if site['service_speed'] == 2 %}
+                        <div class="card dborder-0">
+                            <div class="card-body pd-20">
+                                <div class="text-center">
+                                    <span class="text-danger mr-3">
+                                    <span class="badge badge-danger"><i class="fa fa-arrow-down dwhite"></i></span>
+                                    <span>{{ constant("VERYSLOW") }}</span>
+                                    </span>
+                                    <span class="text-warning mr-3">
+                                    <span class="badge badge-warning"><i class="fa fa-arrow-down dwhite"></i></span>
+                                    <span>{{ constant("SLOW") }}</span>
+                                    </span>
+                                    <span class="text-info mr-3">
+                                    <span class="badge badge-info"><i class="fa fa-arrow-up dwhite"></i></span>
+                                    <span>{{ constant("NORMAL") }}</span>
+                                    </span>
+                                    <span class="text-success mr-3">
+                                    <span class="badge badge-success"><i class="fa fa-arrow-up dwhite"></i></span>
+                                    <span>{{ constant("FAST") }}</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th class="width-service-name" scope="col">{{ constant("SERVICENAME") }}</th>
+                                    <th scope="col">{{ constant("PRICEFOR1K") }}</th>
+                                    <th scope="col">{{ constant("MINIMUM") }}</th>
+                                    <th scope="col">{{ constant("MAXIMUM") }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for category in serviceCategory %}
+                                    <tr class="thead-primary">
+                                        <td colspan="6"><strong> {{ category["category_name"] }} </strong></td>
+                                    </tr>
+                                    {% for service in category.services %}
+                                        <tr>
+                                            <td>{{ service["service_id"] }}</td>
+                                            <td>{{ service["service_name"] }}</td>
+                                            <td><span class="badge"> <strong>{{ settings['csymbol'] }} {{ service["service_price"] }}</strong></span></td>
+                                            <td><span class="badge dservices1">{{ service["service_min"] }}</span></td>
+                                            <td><span class="badge dservices2">{{ service["service_max"] }}</span></td>
+                                        </tr>
+                                    {% endfor %}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    {% endif %}
+{% include 'footer.twig' %}

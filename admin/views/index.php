@@ -1,0 +1,1 @@
+<?php header("Location:". site_url("admin/home")); ?>

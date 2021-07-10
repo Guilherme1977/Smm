@@ -1,0 +1,61 @@
+<?php
+$title.= " My Orders";
+if ($_SESSION["developerity_userlogin"] != 1 || $user["client_type"] == 1) {
+    Header("Location:" . site_url('logout'));
+}
+$status_list = ["all", "pending", "inprogress", "completed", "partial", "processing", "canceled"];
+$search_statu = route(1);
+if (!route(1)):
+    $route[1] = "all";
+endif;
+if (!in_array($search_statu, $status_list)):
+    $route[1] = "all";
+endif;
+if (route(2)):
+    $page = route(2);
+else:
+    $page = 1;
+endif;
+if (route(1) != "all"):
+    $search = "&& order_status='" . route(1) . "'";
+else:
+    $search = "";
+endif;
+if (!empty($_GET["search"])):
+    $search.= " && ( order_url LIKE '%" . $_GET["search"] . "%' || order_id LIKE '%" . $_GET["search"] . "%' ) ";
+endif;
+if (!empty($_GET["subscription"])):
+    $search.= " && ( subscriptions_id LIKE '%" . $_GET["subscription"] . "%'  ) ";
+endif;
+if (!empty($_GET["dripfeed"])):
+    $search.= " && ( dripfeed_id LIKE '%" . $_GET["dripfeed"] . "%'  ) ";
+endif;
+$c_id = $user["client_id"];
+$to = 200;
+$count = $conn->query("SELECT * FROM orders WHERE client_id='$c_id' && dripfeed='1' && subscriptions_type='1' $search ")->rowCount();
+$pageCount = ceil($count / $to);
+if ($page > $pageCount):
+    $page = 1;
+endif;
+$where = ($page * $to) - $to;
+$paginationArr = ["count" => $pageCount, "current" => $page, "next" => $page + 1, "previous" => $page - 1];
+$orders = $conn->prepare("SELECT * FROM orders INNER JOIN services WHERE services.service_id = orders.service_id && orders.dripfeed=:dripfeed && orders.subscriptions_type=:subs && orders.client_id=:c_id $search ORDER BY orders.order_id DESC LIMIT $where,$to ");
+$orders->execute(array("c_id" => $user["client_id"], "dripfeed" => 1, "subs" => 1));
+$orders = $orders->fetchAll(PDO::FETCH_ASSOC);
+$ordersList = [];
+foreach ($orders as $order) {
+    $o["id"] = $order["order_id"];
+    $o["date"] = $order["order_create"];
+    $o["link"] = $order["order_url"];
+    $o["charge"] = $order["order_charge"];
+    $o["start_count"] = $order["order_start"];
+    $o["quantity"] = $order["order_quantity"];
+    $o["service"] = $order["service_name"];
+    $o["status"] = statutoTR($order["order_status"]);
+    if ($order["order_status"] == "completed" && substr($order["order_remains"], 0, 1) == "-"):
+        $o["remains"] = "+" . substr($order["order_remains"], 1);
+    else:
+        $o["remains"] = $order["order_remains"];
+    endif;
+    array_push($ordersList, $o);
+}

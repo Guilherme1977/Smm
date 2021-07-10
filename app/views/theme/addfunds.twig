@@ -1,0 +1,203 @@
+{% include 'header.twig' %}
+<div class="content-body">
+    <div class="container pd-x-0">
+        <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-25 mg-xl-b-30">
+            <div>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb breadcrumb-style1 mg-b-10">
+                        <li class="breadcrumb-item"><a href="#">{{ constant("HOME") }}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ constant("ADDFUNDS") }}</li>
+                    </ol>
+                </nav>
+                <h4 class="mg-b-0 tx-spacing--1">{{ constant("ADDFUNDS") }}</h4>
+            </div>
+        </div>
+        <div class="row row-xs">
+            <div class="col-lg-12">
+                {% if error %}
+                <div class="alert alert-dismissible alert-danger">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    {{ errorText }}
+                </div>
+                {% endif %}
+                {% if success %}
+                <div class="alert alert-dismissible alert-success">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    {{ successText }}
+                </div>
+                {% endif %}
+            </div>
+            <div class="col-md-5 mg-t-10">
+                <div class="card">
+                    <div class="card-body pd-20">
+                        {% if paymentsList %}
+                        <center>
+                            <span class="dfweight700 dfsize36">{{ constant("ONLINE") }}</span><span class="dfsize36"> {{ constant("PAYMENT") }}</span>
+                        </center>
+                            <form method="post" action="addfunds">
+                                <div class="form-group">
+                                    <label for="method" class="control-label">{{ constant("PAYMENTMETHOD") }}</label>
+                                    <select class="form-control" id="payment_method" name="payment_type">
+                                    {% for payment in paymentsList %}
+                                        <option value="{{ payment['id'] }}" {% if data['payment_type'] == payment['id'] %} selected {% endif %} >{{ payment['method_name'] }}</option>
+                                    {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="method" class="control-label">{{ constant("AMOUNT") }}</label>
+                                    <input type="number" class="form-control" name="payment_amount" value="{{ data['payment_amount'] }}">
+                                </div>
+                                <button type="submit" class="btn btn-success">{{ constant("PAYBTN") }}</button>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bildir"><i class="fa fa-bell"></i> {{ constant("PAYNOTIFYBTN") }}</button>
+                                <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#bilgiAl">{{ constant("HOWTOPAYBTN") }}</button>
+                            </form>
+                            <!-- Yardım Al -->
+                            <div class="modal fade" id="bilgiAl" role="dialog">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">{{ constant("HOWTOPAYBTN") }}</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Ödemelerinizi ister kredi kartı istersenizde banka yoluyla yapabilirsiniz.</p>
+                                            1- Ödeme yöntemini size uygun olacak şekilde seçiniz. <br>
+                                            <p>2- "Yüklemek İstediğiniz Tutar" kısmına hesabımıza yüklemek istediğiniz bakiyeyi giriniz. Ardından gerçek telefon bilginizi giriniz. <br>3- "Güvenli Ödeme Sayfasına Git" butonuna basarak ödeme sayfasına gidiniz. <br>
+                                                4- Kredi Kartı/Banka Kartı, seçtiyseniz kart bilgilerinizi girerek ödeme yapabilirsiniz . Eğer havale/eft seçeneğini seçtiyseniz karşınıza gelen ekrandan size uygun bankayı seçerek ödeme yapıp aynı sayfadan ödeme bildirimi yapmanız gerekmektedir onay ardından bakiyeniz otomatik eklenmektedir.<br>
+                                                <br> 
+                                                Ödemeleriniz 5-15 dakika içerisinde Manu olarak onaylanacaktır.<br>
+                                                <br> <strong>---> DİKKAT </strong>Eğer havale ödemeleriniz bakiyenize yansımadıysa konu ile alakalı mailinize bilgilendirme maili gönderilir. Bakiye tespit edilemedi mesajı geldiyse aynı sayfadan ödeme yapar gibi tekrar ödeme bildirimi gönderiniz.
+                                            </p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ constant("CLOSE") }}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="bildir" role="dialog">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">{{ constant("PAYNOTIFYBTN") }}</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method="post" action="addfunds">
+                                                <div class="row">
+                                                    <div class="form-group col-md-4">
+                                                        <label for="method" class="control-label">{{ constant("PAIDACCOUNT") }}</label>
+                                                        <select class="form-control" name="payment_bank">
+                                                            {% for bank in bankList %}
+                                                                <option value="{{ bank['id'] }}" {% if data['payment_bank'] == payment['id'] %} selected {% endif %} >{{ bank['bank_name'] }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-md-4">
+                                                        <label for="method" class="control-label">{{ constant("AMOUNT") }}</label>
+                                                        <input class="form-control" name="payment_bank_amount" value="{{ data['payment_bank_amount'] }}">
+                                                    </div>
+                                                    <div class="form-group col-md-4">
+                                                        <label for="method" class="control-label">{{ constant("WHOSENT") }}</label>
+                                                        <input class="form-control" name="payment_gonderen" value="{{ data['payment_gonderen'] }}">
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <button type="submit" class="btn btn-success">{{ constant("SEND") }}</button>
+                                                    </div>
+                                                    </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ constant("CLOSE") }}</button>
+                                                    </div>
+                                                    </div>
+                                                    </div>
+                                                </div>  
+                                            </form>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                {% if bankPayment == 2 %}
+                                    <div class="col-md-7 mg-t-10">
+                                        <div class="card">
+                                            <div class="card-body pd-20">
+                                                <p class="dta-center">
+                                                    <span class="dfweight700 dfsize36">{{ constant("BANK") }}</span><span class="dfsize36"> {{ constant("ACCOUNTS") }}</span>
+                                                </p>
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped table-bordered table-checkable ">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>{{ constant("BANKNAME") }}</th>
+                                                                <th>{{ constant("CODE") }}</th>
+                                                                <th>{{ constant("ACCOUNTNUMBER") }}</th>
+                                                                <th>{{ constant("IBAN") }}</th>
+                                                                <th>{{ constant("ACCOUNTHOLDER") }}</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {% for bank in bankList %}
+                                                            <tr>
+                                                                <td>{{ bank['bank_name'] }}</td>
+                                                                <td>{{ bank['bank_sube'] }}</td>
+                                                                <td>{{ bank['bank_hesap'] }}</td>
+                                                                <td><b>{{ bank['bank_iban'] }}</b><br></td>
+                                                                <td>{{ bank["bank_alici"] }}</td>
+                                                            </tr>
+                                                            {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped table-bordered table-checkable ">
+                                                        <br>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <b>{{ constant("INFORMATION") }} </b> {{ constant("BANKINFOTEXT") }}
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                {% if payoneerPayment == 2 %}
+                                    <div class="col-md-7 mg-t-10 {% if bankPayment == 2 %} offset-md-5 {% endif %}">
+                                        <div class="card">
+                                            <div class="card-body pd-20">
+                                                <p class="dta-center">
+                                                    <span class="dfweight700 dfsize36">{{ payoneerPaymentTitle }}</span><span class="dfsize36"> {{ constant("PAYMENT") }}</span>
+                                                </p>
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped table-bordered table-checkable ">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Email</th>
+                                                                <th>Minimum Amount</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>{{ payoneerPaymentEmail }}</td>
+                                                                <td>50 USD</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+{% include 'footer.twig' %}

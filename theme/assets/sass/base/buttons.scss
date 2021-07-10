@@ -1,0 +1,82 @@
+// buttons Codes
+.btn {
+  width: max-content;
+  padding: 0 1.5rem !important;
+  @include borderRadius(4px);
+  @include transition(300ms);
+  display: block;
+  cursor: pointer;
+  font-size: 0.9rem;
+  height: 3rem;
+  line-height: 3rem;
+  text-align: center;
+  display: flex !important;
+  align-items: center !important;
+
+  &-shadow {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  }
+  &-light {
+    color: $color-1;
+    background-color: #fff;
+    &:hover {
+      @include transform(translateY(-0.5rem));
+    }
+  }
+  &-static {
+    color: $color-1;
+    background-color: $color-2;
+    &:hover,
+    &.active {
+      background-color: $color-1;
+      color: #fff;
+    }
+  }
+  &-primary {
+    color: #fff !important;
+    background-color: $color-1;
+    height: 3rem;
+    &:hover {
+      @include transform(translateY(-0.5rem));
+    }
+  }
+  &-right__icon {
+    i {
+      margin-left: 1rem !important;
+    }
+  }
+  &-left__icon {
+    i {
+      margin-right: 1rem !important;
+    }
+  }
+  &-secondary {
+    background-color: rgba($color-4, 0.3);
+    height: 3rem;
+    @include borderRadius(3rem);
+    line-height: 3rem;
+    padding: 0 3rem;
+    color: #000;
+    &:hover {
+      @include transform(translateY(-0.5rem));
+    }
+
+    i {
+      margin-left: 1rem;
+      font-size: 14px;
+    }
+  }
+  &-black {
+    background-color: rgba($color-4, 0.3);
+    height: 3rem;
+    @include borderRadius(3rem);
+    line-height: 3rem;
+    padding: 0 3rem;
+    color: #000;
+    cursor: pointer;
+    &:hover {
+      background-color: #000;
+      color: #fff;
+    }
+  }
+}

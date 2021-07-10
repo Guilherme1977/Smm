@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <base href="{{ site['url'] }}/">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    {% if site['favicon'] %}
+        <link rel="shortcut icon" type="image/ico" href="{{ site['favicon'] }}" />
+    {% endif %}
+
+    <title>{{ title }}</title>
+    <meta name="keywords" content="{{ settings['site_keywords'] }}">
+    <meta name="description" content="{{ settings['site_description'] }}">
+
+    {% if user['auth'] %}
+    <link href="theme/lib/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="theme/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+    <link href="theme/lib/jqvmap/jqvmap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="theme/assets/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="theme/assets/css/developerity.css">
+    <link rel="stylesheet" href="theme/assets/css/developerity.custom.css">
+    <link rel="stylesheet" href="theme/assets/css/developerity.otherstyles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400%7cOpen+Sans:300,400,600%7cPT+Serif:400i">
+</head>
+
+<body>
+    <aside class="aside aside-fixed">
+        <div class="aside-header">
+            <a class="aside-logo" href="{{ site['url'] }}">
+                {% if site["logo"] %}
+                    <img src="{{ site['logo'] }}" alt="{{ site["site_name"] }}" title="{{ site["site_name"] }}" class="dw-90">
+                {% else %}
+                    <img src="theme/assets/img/unlogo.png" alt="{{ site["site_name"] }}" title="{{ site["site_name"] }}" class="dw-20"> <span class="speciallogo dw-20">{{ site["site_name"] }}</span>
+                {% endif %}
+            </a>
+            <a href="" class="aside-menu-link">
+                <i data-feather="menu"></i>
+                <i data-feather="x"></i>
+            </a>
+        </div>
+        <div class="aside-body dpt-0">
+            <div class="aside-loggedin">
+                <div class="aside-loggedin-user">
+                    {% if user['admin_type'] > 1 %}
+                        <a href="{{ site['url'] }}/admin" class="dblack dwd-100 tx-color-03 tx-12 mg-b-10 btn btn-outline-warning">Go to Administrator Area</a>
+                    {% endif %}
+                    <a href="{{ site['url'] }}/addfunds" class="dwhite dwd-100 tx-color-03 tx-12 mg-b-30 btn btn-primary">{{ constant("BALANCE") }} {{ settings['csymbol'] }}{{ user['balance'] }}</a>
+                    <a href="#loggedinMenu" class="d-flex align-items-center justify-content-between mg-b-2" data-toggle="collapse" aria-expanded="true">
+                        <h6 class="tx-semibold mg-b-0">{{ user['name'] }}</h6>
+                        <i data-feather="chevron-down"></i>
+                    </a>
+                </div>
+                <div class="collapse show" id="loggedinMenu">
+                    <ul class="nav nav-aside mg-b-0">
+                        <li class="nav-item"><a href="{{ site['url'] }}/account" class="nav-link"><i data-feather="settings"></i> <span>{{ constant("ACCOUNT") }}</span></a></li>
+                        <li class="nav-item"><a href="{{ site['url'] }}/logout" class="nav-link"><i data-feather="log-out"></i> <span>{{ constant("LOGOUT") }}</span></a></li>
+                    </ul>
+                </div>
+            </div>
+            <ul class="nav nav-aside">
+                <li class="nav-label">{{ constant("GENERAL") }}</li>
+                <li class="nav-item"><a href="{{ site['url'] }}/" class="nav-link"><i data-feather="shopping-bag"></i> <span>{{ constant("NEWORDER") }}</span></a></li>
+                <li class="nav-item with-sub">
+                    <a href="" class="nav-link"><i data-feather="shopping-cart"></i> <span>{{ constant("ORDERS") }}</span></a>
+                    <ul>
+                        <li><a href="{{ site['url'] }}/orders">{{ constant("ORDERHISTORY") }}</a></li>
+                        <li><a href="{{ site['url'] }}/dripfeeds">{{ constant("DRIPFEED") }}</a></li>
+                        <li><a href="{{ site['url'] }}/subscriptions">{{ constant("SUBSCRIPTIONS") }}</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a href="{{ site['url'] }}/services" class="nav-link"><i data-feather="bar-chart-2"></i> <span>{{ constant("SERVICES") }}</span></a></li>
+                <li class="nav-item"><a href="{{ site['url'] }}/addfunds" class="nav-link"><i data-feather="credit-card"></i> <span>{{ constant("ADDFUNDS") }}</span></a></li>
+                <li class="nav-item"><a href="{{ site['url'] }}/api" class="nav-link"><i data-feather="code"></i> <span>{{ constant("APIDOCUMENT") }}</span></a></li>
+
+                <li class="nav-label mg-t-25">{{ constant("SUPPORT") }}</li>
+                {% if settings['ticket_system'] == 2 %}
+                    <li class="nav-item"><a href="{{ site['url'] }}/tickets" class="nav-link"><i data-feather="help-circle"></i> <span>{{ constant("TICKET") }}</span></a></li>
+                {% endif %}
+                <li class="nav-item"><a href="{{ site['url'] }}/faq" class="nav-link"><i data-feather="help-circle"></i> <span>{{ constant("FAQS") }}</span></a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ site['url'] }}/terms"><i data-feather="help-circle"></i> <span>{{ constant("TERMOFUSE") }}</span></a></li>
+
+            </ul>
+        </div>
+    </aside>
+
+    <div class="content ht-100v pd-0">
+        <div class="content-header">
+            <div class="content-search">
+            </div>
+            <nav class="nav">
+                <a href="{{ site['url'] }}/logout" class="nav-link"><i data-feather="log-out"></i></a>
+            </nav>
+        </div>
+{% else %}
+            <link href="theme/lib/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+            <link href="theme/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+            <link href="theme/lib/jqvmap/jqvmap.min.css" rel="stylesheet">
+            <link rel="stylesheet" href="theme/assets/css/dataTables.bootstrap4.min.css">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400%7cOpen+Sans:300,400,600%7cPT+Serif:400i">
+
+            <link rel="stylesheet" href="theme/assets/css/developerity.css">
+            <link rel="stylesheet" href="theme/assets/css/developerity.panel.css">
+            <link rel="stylesheet" href="theme/assets/css/developerity.otherstyles.css">
+            <link rel="stylesheet" href="theme/assets/css/app.css">
+            {% for style in styleList %}
+                <link rel="stylesheet" type="text/css" href="{{ style }}">
+            {% endfor %}
+            {{ headerCode }}
+        </head>
+
+        <body>
+            <!-- Page Loading Start -->
+            <div class="page-loading">
+                <div class="snipper"></div>
+            </div>
+            <!-- Page Loading End -->
+            <div id="wrapper">
+                <!-- Navbar Start -->
+                <div class="navbar">
+                    <div class="navbar-logo">
+                        <a class="navbar-brand dblack df-bold" href="{{ site['url'] }}">
+                            {% if site["logo"] %}
+                                <img src="{{ site['logo'] }}" alt="{{ site["site_name"] }}" title="{{ site["site_name"] }}">
+                            {% else %}
+                                <img src="theme/assets/img/unlogo.png" alt="{{ site["site_name"] }}" title="{{ site["site_name"] }}"> <span class="speciallogo">{{ site["site_name"] }}</span>
+                            {% endif %}
+                        </a>
+                    </div>
+                    <nav class="navbar-nav">
+                        <ul class="navbar-list">
+                            <li class="nav-label pd-l-20 pd-lg-l-25 d-lg-none"></li>
+
+                            <li class="navbar-item">
+                                <a class="navbar-link" href="{{ site['url'] }}/">{{ constant("HOME") }}</a>
+                            </li>
+                            {% if servicesPage == 1 %}
+                                <li class="navbar-item">
+                                    <a class="navbar-link" href="{{ site['url'] }}/services">{{ constant("SERVICES") }}</a>
+                                </li>
+                            {% endif %}
+                            <li class="navbar-item">
+                                <a class="navbar-link" href="{{ site['url'] }}/api">{{ constant("API") }}</a>
+                            </li>
+                            <li class="navbar-item">
+                                <a class="navbar-link" href="{{ site['url'] }}/faq">{{ constant("FAQS") }}</a>
+                            </li>
+                            <li class="navbar-item">
+                                <a class="navbar-link" href="{{ site['url'] }}/terms">{{ constant("TERMOFUSE") }}</a>
+                            </li>
+                            <li>
+                                <a href="#login" class="navbar-link btn btn-shadow btn-light margin-r">{{ constant("LOGIN") }}</a>
+                            </li>
+                            <li>
+                                <a href="{{ site['url'] }}/auth/register" class="navbar-link btn btn-primary">{{ constant("REGISTER") }}</a>
+                            </li>
+                        </ul>
+                    </nav>
+
+                    <div class="navbar-mobile">
+                        <button type="button" class="btn btn-static">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
+                </div>
+                <!-- Navbar End -->
+        {% endif %}

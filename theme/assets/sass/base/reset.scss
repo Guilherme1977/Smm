@@ -1,0 +1,33 @@
+// Reset Codes
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+}
+a,
+a:link,
+a:visited {
+  text-decoration: none;
+}
+ul,
+li,
+ol {
+  list-style-type: none;
+}
+
+// Space
+.margin-r {
+  margin-right: 1rem;
+}
+.margin-l {
+  margin-left: 1rem;
+}
+.margin {
+  margin: 1rem;
+}
+.margin-auto {
+  margin: 0 auto;
+}

@@ -1,0 +1,82 @@
+{% include 'header.twig' %}
+
+<div class="content-body">
+    <div class="container pd-x-0">
+        <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-25 mg-xl-b-30">
+            <div>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb breadcrumb-style1 mg-b-10">
+                        <li class="breadcrumb-item"><a href="#">{{ constant("HOME") }}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ constant("DRIPFEED") }} {{ constant("ORDERS") }}</li>
+                    </ol>
+                </nav>
+                <h4 class="mg-b-0 tx-spacing--1">{{ constant("DRIPFEED") }} {{ constant("ORDERS") }}</h4>
+            </div>
+        </div>
+
+        <div class="row row-xs">
+
+            <div class="col-md-12 mg-t-10">
+                <div class="card">
+                    <div class="card-body pd-20 table-responsive">
+
+                        <table class="table" id="dt">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>{{ constant("DATE") }}</th>
+                                    <th class="width-40">{{ constant("LINK") }}</th>
+                                    <th>{{ constant("AMOUNT") }}</th>
+                                    <th class="nowrap">{{ constant("QUANTITY") }}</th>
+                                    <th>{{ constant("SERVICENAME") }}</th>
+                                    <th class="nowrap">{{ constant("SHIPPING") }}</th>
+                                    <th>{{ constant("SHIPPINGTIME") }}</th>
+                                    <th>{{ constant("TOTALQUANTITY") }}</th>
+                                    <th>{{ constant("STATUS") }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                {% for dripFeed in orders %}
+                                <tr>
+                                    <td>{{ dripFeed['id'] }}</td>
+                                    <td>{{ dripFeed['date'] }}</td>
+                                    <td class="width-40">{{ dripFeed['link'] }}</td>
+                                    <td>{{ dripFeed['total_charges'] }}</td>
+                                    <td class="nowrap">{{ dripFeed['quantity'] }}</td>
+                                    <td>{{ dripFeed['service'] }}</td>
+                                    <td class="nowrap">
+                                        {% if dripFeed['delivery'] %}
+                                        <a href="orders?dripfeed={{ dripFeed['id'] }}"> {{ dripFeed['delivery'] }} </a> / {{ dripFeed['runs'] }} {% else %} {{ dripFeed['delivery'] }} / {{ dripFeed['runs'] }} {% endif %}
+                                    </td>
+                                    <td>{{ dripFeed['interval'] }}</td>
+                                    <td>{{ dripFeed['total_quantity'] }}</td>
+                                    <td>{{ dripFeed['status'] }}</td>
+                                </tr>
+                                {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% include 'footer.twig' %}
+
+<script>
+    $(document).ready(function() {
+        $('#dt').DataTable({
+            responsive: true,
+            language: {
+                searchPlaceholder: '{{ constant("SEARCHORDER") }}',
+                sSearch: '',
+                lengthMenu: '_MENU_ {{ constant("SHOWORDER") }}',
+            }
+        });
+    });
+</script>

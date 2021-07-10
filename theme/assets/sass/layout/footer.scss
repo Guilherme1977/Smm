@@ -1,0 +1,94 @@
+// Footer Codes
+footer {
+  grid-column: full-start / full-end;
+  // background: url(../img/footer.png) no-repeat;
+  background-color: $color-3;
+  // height: 40rem;
+  width: 100%;
+  margin-top: 10rem;
+  @include center;
+}
+.footer {
+  width: 70%;
+  @media only screen and (max-width: 992px) {
+    width: 90%;
+  }
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: min-content 1fr;
+  grid-row-gap: 2rem;
+
+  @include transform(translateY(-7rem));
+
+  &-form {
+    background-color: #fff;
+    padding: 3rem;
+    @include borderRadius(5px);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(min-content, auto));
+    grid-gap: 1.5rem;
+
+    &__text {
+      grid-column: 1/2;
+      @media only screen and (max-width: 992px) {
+        grid-column: 1/-1;
+      }
+    }
+
+    .form {
+      grid-column: 2/3;
+      @media only screen and (max-width: 992px) {
+        grid-column: 1/-1;
+        grid-row: 2;
+      }
+      display: grid;
+      grid-template-columns: minmax(min-content, 1fr) min-content;
+      grid-template-rows: auto;
+      grid-gap: 1.5rem;
+      align-items: center;
+    }
+
+    &__input {
+      background-color: $color-4;
+      @include borderRadius(4px);
+      display: inline-block;
+      margin-right: 1rem;
+      width: 100%;
+      height: 3rem;
+      padding: 0 1.5rem;
+      font-size: 0.9rem;
+      letter-spacing: 0.05rem;
+    }
+  }
+  &-menu {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    grid-template-rows: min-content;
+    grid-gap: 3rem;
+    color: #fff;
+
+    &__item {
+      display: grid;
+      grid-template-rows: min-content;
+      grid-row-gap: 1.4rem;
+    }
+
+    nav {
+      ul {
+        li {
+          a {
+            color: #fff;
+            @include transition(500ms);
+            padding: 0.7rem 0;
+            display: block;
+            &:hover {
+              background-color: #08052e;
+              color: #fff;
+              padding: 0.7rem 1.5rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}

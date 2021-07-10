@@ -1,0 +1,158 @@
+{% include 'header.twig' %}
+    <!-- Slider Start -->
+    <section id="slider" style="padding-top: 50px;">
+        <div class="slider">
+            <div class="slider-text">
+                <h2>
+                    {{ site['site_name'] }}<br>
+                    {{ constant("SLIDERTEXT") }}
+                </h2>
+                <p>
+                    {{ constant("SLIDERMINITEXT") }}
+                </p>
+                <a href="{{ site['url'] }}/auth/register" class="btn btn-light btn-right__icon"> {{ constant("REGISTER") }} <i class="fas fa-arrow-right"> </i> </a>
+            </div>
+            <div class="slider-img">
+                <img src="theme/assets/img/slider.png" alt="#" />
+            </div>
+        </div>
+    </section>
+    <!-- Slider End -->
+
+    <div class="slider-login" id="login">
+        <div class="footer-form">
+            <div class="footer-form__text">
+                <h3>{{ constant("LOGIN") }}</h3>
+                <p>
+                    {{ constant("WELCOMETEXT") }}
+                </p>
+                <p>
+                    {% if errorText %}
+                        <div class="alert alert-dismissible alert-danger">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            {{ errorText }}
+                        </div>
+                    {% endif %} {% if successText %}
+                        <div class="alert alert-dismissible alert-success">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            {{ successText }}
+                        </div>
+                    {% endif %}
+                </p>
+            </div>
+
+            <form method="post" action="" class="form dflex">
+                <a href="{{ site['url'] }}/resetpassword" class="tx-13 forgotpass">{{ constant("FORGOTPASS") }}</a>
+
+                <input type="text" class="footer-form__input" name="username" placeholder="{{ constant("USERNAME") }}">
+                <input type="password" class="footer-form__input" name="password" placeholder="●●●●●●●●●●">
+
+                <!-- {% if captcha %}
+                    <div class="form-group">
+                        <div class="g-recaptcha" data-sitekey="{{ captchaKey }}"></div>
+                    </div>
+                {% endif %} -->
+
+                <button type="submit" class="btn btn-primary btn-right__icon" style="min-width: 115px">{{ constant("LOGIN") }} <i class="fas fa-paper-plane"></i></button>
+            </form>
+            <script src='https://www.google.com/recaptcha/api.js'></script>
+        </div>
+    </div>
+
+    <!-- Social Start -->
+    <div class="slider-social">
+        <div class="slider-social__item">
+            <div class="slider-social__item-icon">
+                <i class="fab fa-instagram"></i>
+            </div>
+            <b>Instagram</b> <br />
+            Services
+            <a href="{{ site['url'] }}/services" class="btn btn-secondary">
+                See all
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+        <div class="slider-social__item">
+            <div class="slider-social__item-icon">
+                <i class="fab fa-facebook"></i>
+            </div>
+            <b>Facebook</b> <br />
+            Services
+            <a href="{{ site['url'] }}/services" class="btn btn-secondary">
+                See all
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+        <div class="slider-social__item">
+            <div class="slider-social__item-icon">
+                <i class="fab fa-youtube"></i>
+            </div>
+            <b>YouTube</b> <br />
+            Services
+            <a href="{{ site['url'] }}/services" class="btn btn-secondary">
+                See all
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+        <div class="slider-social__item">
+            <div class="slider-social__item-icon">
+                <i class="fab fa-twitch"></i>
+            </div>
+            <b>Twitch</b> <br />
+            Services
+            <a href="{{ site['url'] }}/services" class="btn btn-secondary">
+                See all
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+    <!-- Social End -->
+
+    <!-- Tercih Start -->
+    <section id="tercih" style="margin-top:50px">
+        <div class="tercih">
+            <img src="theme/assets/img/phone-2.png" alt="#" class="tercih-phone" />
+            <img src="theme/assets/img/tercih-bg.png" alt="#" class="tercih-bg" />
+            <div class="tercih-text">
+                <h3>{{ constant("SECTIONTWOTITLE") }}</h3>
+                <p>
+                    {{ constant("SECTIONTWOCONTENT") }}
+                </p>
+                <a href="{{ site['url'] }}/services" class="btn btn-primary">{{ constant("SERVICES") }}</a>
+            </div>
+        </div>
+    </section>
+    <!-- Tercih End -->
+
+    <!-- Customers Start -->
+    <section id="customers" style="margin-top:50px">
+        <div class="customers">
+            <h3>{{ constant("CUSTOMERCOMMENT") }}</h3>
+            <div class="customers-item">
+                <i class="fas fa-quote-left"></i>
+                <p class="customers-content">
+                    I have been using {{ settings['site_name'] }} for a year now, I am very happy with their panel. I never had a problem, and when something wrong occurs they always compensate and more! Simply the best!
+                </p>
+                <p class="customers-name">Andy Russo</p>
+            </div>
+            <div class="customers-item">
+                <i class="fas fa-quote-left"></i>
+                <p class="customers-content">
+                    {{ settings['site_name'] }} has helped my shoe company a lot. Over the past 4 months, my company sales have increased widely after I started on using {{ settings['site_name'] }} on my company's Instagram to boost it!
+                </p>
+                <p class="customers-name">Christy Timms</p>
+            </div>
+            <div class="customers-item">
+                <i class="fas fa-quote-left"></i>
+                <p class="customers-content">
+                    {{ settings['site_name'] }} has really changed my life. I use {{ settings['site_name'] }} to boost my clients' exposure on Youtube and Soundcloud, {{ settings['site_name'] }} has made this job a 1000 times easier for me. I cannot thank them enough!
+                </p>
+                <p class="customers-name">Jethro Lozano</p>
+            </div>
+        </div>
+        <div class="customers-img">
+            <img src="theme/assets/img/customers.png" style="position:relative;z-index:1" alt="#" />
+        </div>
+    </section>
+    <!-- Customers End -->
+{% include 'footer.twig' %}

@@ -1,0 +1,71 @@
+// Customers Codes
+section#customers {
+  grid-column: center-start / center-end;
+
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: auto;
+
+  @media only screen and (max-width: 992px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, min-content);
+  }
+}
+
+.customers {
+  grid-column: 1/6;
+  grid-row: 1/-1;
+  align-self: start;
+  background-color: #fff;
+  @include borderRadius_(3rem, 0, 0, 3rem);
+  padding: 3rem 0 3rem 3rem;
+
+  @media only screen and (max-width: 992px) {
+    grid-column: 1/-1;
+    grid-row: 1/2;
+    width: 100%;
+    padding: 3rem 3rem 3rem 3rem;
+  }
+
+  display: grid;
+  grid-template-rows: min-content 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  grid-gap: 3rem;
+
+  h3 {
+    text-align: center;
+    grid-column: 1/-1;
+  }
+
+  &-item {
+    text-align: center;
+    i {
+      font-size: 2rem;
+      color: rgba(#000, 0.1);
+      margin-bottom: 1rem;
+    }
+  }
+
+  &-content {
+    margin-bottom: 2rem;
+  }
+  &-name {
+    color: $color-1;
+    font-size: 0.9rem;
+  }
+
+  &-img {
+    grid-column: 5/-1;
+    grid-row: 1/-1;
+
+    @media only screen and (max-width: 992px) {
+      grid-column: 1/-1;
+      grid-row: 2 / span 1;
+      align-self: center;
+    }
+
+    img {
+      width: 100%;
+    }
+  }
+}

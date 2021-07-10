@@ -1,0 +1,39 @@
+{% include 'header.twig' %}
+
+{% if user['auth'] %}
+    <div class="content-body">
+{% else %}
+    <div class="slider-social" style="margin-top:0">
+{% endif %}
+
+    <div class="container">
+        {% if user['auth'] %}
+            <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-25 mg-xl-b-30">
+        {% else %}
+            <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-t-100 mg-lg-b-25 mg-xl-b-30">
+        {% endif %}
+            <div>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb breadcrumb-style1 mg-b-10">
+                        <li class="breadcrumb-item"><a href="#">{{ constant("HOME") }}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ constant("TERMOFUSE") }}</li>
+                    </ol>
+                </nav>
+                <h4 class="mg-b-0 tx-spacing--1">{{ constant("TERMOFUSE") }}</h4>
+            </div>
+        </div>
+        <div class="row row-ws">
+            <div class="col-md-12 mg-t-10">
+                <div class="card">
+                    <div class="card-body pd-20">
+                        <div id="accordion1" class="accordion">
+                            {{ contentText }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'footer.twig' %}

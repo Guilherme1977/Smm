@@ -1,0 +1,15 @@
+// Base
+@import "base/var.scss";
+@import "base/mixins";
+@import "base/reset.scss";
+@import "base/fonts.scss";
+@import "base/buttons.scss";
+@import "base/grid.scss";
+
+// Layout
+@import "layout/header";
+@import "layout/populer-paketler";
+@import "layout/tercih";
+@import "layout/blog";
+@import "layout/customers";
+@import "layout/footer";

@@ -1,0 +1,91 @@
+{% include 'header.twig' %}
+
+<div class="content-body">
+    <div class="container pd-x-0">
+        <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-25 mg-xl-b-30">
+            <div>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb breadcrumb-style1 mg-b-10">
+                        <li class="breadcrumb-item"><a href="#">{{ constant("HOME") }}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ constant("SUBSCRIPTIONS") }}</li>
+                    </ol>
+                </nav>
+                <h4 class="mg-b-0 tx-spacing--1">{{ constant("SUBSCRIPTIONS") }}</h4>
+            </div>
+        </div>
+
+        <div class="row row-xs">
+
+            <div class="col-md-12 mg-t-10">
+                <div class="card">
+                    <div class="card-body pd-20 table-responsive">
+
+                        <table class="table" id="dt">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>{{ constant("USERNAME") }}</th>
+                                    <th>{{ constant("QUANTITY") }}</th>
+                                    <th>{{ constant("NUMBEROFPOSTS") }}</th>
+                                    <th>{{ constant("DELAY") }}</th>
+                                    <th>{{ constant("SERVICENAME") }}</th>
+                                    <th>{{ constant("STATUS") }}</th>
+                                    <th>{{ constant("CREATEDDATE") }}</th>
+                                    <th>{{ constant("UPDATEDATE") }}</th>
+                                    <th>{{ constant("ENDDATE") }}</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                {% for order in orders %}
+                                <tr>
+                                    <td>{{ order['id'] }}</td>
+                                    <td class="link">{{ order['link'] }}</td>
+                                    <td class="nowrap">{% if order['quantity_min'] == order['quantity_max'] %}{{ order['quantity_max']}}{% else %}{{ order['quantity_min'] }}-{{ order['quantity_max'] }}{% endif %}</td>
+                                    <td class="nowrap">
+                                        {% if order['current_count'] %}
+                                        <a href="subscriptions?subscription={{ order['id'] }}">{{ order['current_count'] }}</a> {% else %} {{ order['current_count'] }} {% endif %} / {{ order['posts'] }}</td>
+                                    <td>{{ order['delay'] }}</td>
+                                    <td>{{ order['service'] }}</td>
+                                    <td>{{ order['status_name'] }}</td>
+                                    <td><span class="nowrap">{{ order['date_created'] }}</span></td>
+                                    <td><span class="nowrap">{{ order['date_updated'] }}</span></td>
+                                    <td><span class="nowrap">{{ order['date_expiry'] }}</span></td>
+                                    <td>
+                                        {% if order['status'] == "active" %}
+                                            <a href="subscriptions/pause/{{order['id']}}" class="btn btn-primary btn-xs">{{ constant("STOP") }}</a>
+                                        {% endif %}
+                                        {% if order['status'] == "paused" %}
+                                            <a href="subscriptions/resume/{{order['id']}}" class="btn btn-primary btn-xs" style="margin-bottom:5px">{{ constant("RESUME") }}</a>
+                                            <a href="subscriptions/stop/{{order['id']}}" class="btn btn-primary btn-xs">{{ constant("CANCEL") }}</a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% include 'footer.twig' %}
+
+<script>
+    $(document).ready(function() {
+        $('#dt').DataTable({
+            responsive: true,
+            language: {
+                searchPlaceholder: '{{ constant("SEARCHORDER") }}',
+                sSearch: '',
+                lengthMenu: '_MENU_ {{ constant("SHOWORDER") }}',
+            }
+        });
+    });
+</script>

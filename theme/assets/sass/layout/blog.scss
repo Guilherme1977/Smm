@@ -1,0 +1,99 @@
+// Blog Codes
+section#blog {
+  grid-column: full-start / full-end;
+  background-color: rgba($color-4, 0.4);
+  padding: 5rem 0;
+  margin: 5rem 0;
+  z-index: 0;
+
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: min-content 1fr;
+  grid-row-gap: 8rem;
+  justify-items: center;
+  overflow: hidden;
+  position: relative;
+  &::before,
+  &::after {
+    content: "";
+    display: block;
+    width: 500px;
+    height: 500px;
+    background-color: $color-1;
+    @include borderRadius(50px);
+    @include transform(rotate(45deg));
+    z-index: -1;
+  }
+  &::before {
+    position: absolute;
+    left: -24%;
+    top: 60%;
+    bottom: 0;
+    @media only screen and (max-width: 992px) {
+      left: -50%;
+    }
+  }
+  &::after {
+    position: absolute;
+    right: -24%;
+    top: 0%;
+
+    @media only screen and (max-width: 992px) {
+      right: -50%;
+    }
+  }
+}
+.title {
+  h2,
+  p {
+    text-align: center;
+  }
+}
+.blog {
+  width: 70%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(27rem, 1fr));
+  grid-gap: 2rem;
+  align-content: center;
+  justify-content: center;
+  &-item {
+    background-color: #fff;
+    display: grid;
+    grid-template-columns: min-content 1fr;
+    grid-template-rows: min-content;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 0 1rem rgba($color-4, 0.4);
+    @include borderRadius(0.5rem);
+    &__img {
+      width: 12rem;
+      height: 12rem;
+      img {
+        @include fitImg;
+      }
+    }
+    &__content {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(2, min-content) 1fr;
+      padding-left: 1rem;
+      padding-top: 1rem;
+      justify-items: start;
+      grid-row-gap: 0.5rem;
+      .date {
+        font-size: 0.9rem;
+        color: rgba(#000, 0.7);
+        align-self: center;
+
+        i {
+          margin-right: 0.5rem;
+        }
+      }
+    }
+    &__oku {
+      position: absolute;
+      right: -5%;
+      bottom: 10%;
+    }
+  }
+}

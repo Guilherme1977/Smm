@@ -1,0 +1,45 @@
+// Tercih
+section#tercih {
+  grid-column: full-start / center-end;
+}
+
+.tercih {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(min-content, 1fr));
+  position: relative;
+  grid-gap: 2rem;
+  align-items: center;
+
+  @media only screen and (max-width: 992px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3, min-content);
+  }
+
+  &-bg {
+    grid-column: 1/2;
+    grid-row: 1/-1;
+    width: 100%;
+  }
+
+  &-phone {
+    grid-column: 1/2;
+    grid-row: 1/-1;
+    width: 75%;
+    justify-self: end;
+    z-index: 100;
+  }
+  &-text {
+    grid-column: 2/-1;
+    grid-row: 1/-1;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3, min-content);
+    grid-row-gap: 2rem;
+    align-content: center;
+    justify-content: center;
+    @media only screen and(max-width: 1170px) {
+      padding: 0 2rem;
+    }
+  }
+}
