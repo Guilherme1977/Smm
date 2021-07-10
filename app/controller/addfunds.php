@@ -103,7 +103,7 @@ if ($_POST && $_POST["payment_bank"]):
         } else {
             // $currentcur = '{"rates": {"USD": "1"}}';
             $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, 'https://api.exchangeratesapi.io/latest?base='.$settings['currency']);
+            curl_setopt($ch, CURLOPT_URL, 'https://api.exchangeratesapi.host/latest?base='.$settings['currency']);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             $currentcur = curl_exec($ch);
             $currentcur = json_decode($currentcur);
